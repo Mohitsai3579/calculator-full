@@ -1,7 +1,11 @@
-#!/bin/bash
-if [ $MODE = "DEVE" ]
-  then
-      java -jar calculator-1.0-SNAPSHOT-jar-with-dependencies.jar < input.txt
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Use default MODE if not set (but Dockerfile already sets MODE)
+MODE="${MODE:-DEVE}"
+
+if [ "$MODE" = "DEVE" ]; then
+    exec java -jar /app.jar < /input.txt
 else
-      java -jar calculator-1.0-SNAPSHOT-jar-with-dependencies.jar
+    exec java -jar /app.jar
 fi
